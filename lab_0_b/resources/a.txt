@@ -1,0 +1,6 @@
+abobus 5 10
+bbobus 5 10
+cbobus 5 10
+dbobus 5 10
+ebobus 5 10
+fbobus 5 10

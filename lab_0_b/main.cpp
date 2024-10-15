@@ -1,29 +1,30 @@
 #include<iostream>
 #include<fstream>
-#include "models/entity.h"
 #include <list>
+
+#include "models/entity.h"
 
 using namespace std;
 
 int main(int argc, char** argv)
 {
-    string input_file_path = "a.txt", output_file_path = "output.csv";
+    string input_file_path = "resources/a.txt", output_file_path = "output.csv";
     if(argc != 1)
     {
-        input_file_path = "";
-        output_file_path = "";    
+        input_file_path = argv[1];
+        output_file_path = argv[2];    
     }
 
-    for(int i = 1; i < argc; i++)
-    {
-        for(int j = 0; j < argv[i][j] != 0; j++)
-        {
-            if(i == 1)
-                input_file_path += argv[i][j];
-            else if(i == 2)
-                output_file_path += argv[i][j];
-        }
-    }
+    // for(int i = 1; i < argc; i++)
+    // {
+    //     for(int j = 0; j < argv[i][j] != 0; j++)
+    //     {
+    //         if(i == 1)
+    //             input_file_path += argv[i][j];
+    //         else if(i == 2)
+    //             output_file_path += argv[i][j];
+    //     }
+    // }
     ifstream file(input_file_path, ios_base::in); 
     
     list<models::entity> entities;

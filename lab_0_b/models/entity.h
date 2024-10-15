@@ -18,13 +18,13 @@ namespace models
            float getPercent() const;
 
            friend ofstream& operator<<(ofstream& os, const entity& c)
-           {
+            {
                 string a = ";";
-                os << c.getWord() 
+                os << c._word
                 << a 
-                << to_string(c.getFrequency()) 
+                << to_string(c._frequency) 
                 << a 
-                << to_string(c.getPercent())
+                << to_string(c._percent)
                 << endl; 
                 return os; 
            }

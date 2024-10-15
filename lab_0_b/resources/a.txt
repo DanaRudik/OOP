@@ -1,6 +1,0 @@
-abobus 1 10
-bbobus 2 10
-cbobus 3 10
-dbobus 4 10
-ebobus 5 10
-fbobus 5 10

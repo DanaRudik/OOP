@@ -26,7 +26,11 @@ int main(int argc, char** argv)
     //     }
     // }
     ifstream file(input_file_path, ios_base::in); 
-    
+    if (!file.is_open()) {
+        std::cout << "dfsdfs";
+        return -1;
+    }
+
     list<models::entity> entities;
     for(string i; getline(file,i);)
     {
@@ -48,7 +52,7 @@ int main(int argc, char** argv)
     for(int i = 0; i < entities.size(); i++)
     {
         models::entity temp = *l_front;
-        out << temp;
+        out << temp.getFrequency();
         advance(l_front, 1);
     }
     out.close();

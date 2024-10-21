@@ -15,19 +15,9 @@ int main(int argc, char** argv)
         output_file_path = argv[2];    
     }
 
-    // for(int i = 1; i < argc; i++)
-    // {
-    //     for(int j = 0; j < argv[i][j] != 0; j++)
-    //     {
-    //         if(i == 1)
-    //             input_file_path += argv[i][j];
-    //         else if(i == 2)
-    //             output_file_path += argv[i][j];
-    //     }
-    // }
     ifstream file(input_file_path, ios_base::in); 
     if (!file.is_open()) {
-        std::cout << "dfsdfs";
+        std::cout << "An error occurred when opening the file. Check the correctness of the data";
         return -1;
     }
 
@@ -52,7 +42,7 @@ int main(int argc, char** argv)
     for(int i = 0; i < entities.size(); i++)
     {
         models::entity temp = *l_front;
-        out << temp.getFrequency();
+        out << temp;
         advance(l_front, 1);
     }
     out.close();

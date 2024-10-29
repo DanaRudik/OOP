@@ -12,7 +12,7 @@ namespace models
     class entity
     {
         public:
-           entity(string str); // constructor
+           entity(string word, int32_t frequency, float percent); // constructor
            int32_t getFrequency() const;
            string getWord() const;
            float getPercent() const;

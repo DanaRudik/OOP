@@ -3,33 +3,10 @@
 //definition class
 using namespace models;
 
-entity::entity(string str)// constructor
+entity::entity(string word, int32_t frequency, float percent)// constructor
+: _frequency(frequency), _word(word), _percent(percent)
 {
-    string temp;
-    for(int i = 0, j = 0; i <= str.length(); i++)
-    {
-        if(i != str.length() && str[i] != ' ')
-        {
-            temp += str[i];
-        }
-        else 
-        {
-            switch(j)
-            {
-                case 0:
-                    _word = temp;
-                    break;
-                case 1:
-                    _frequency = stoi(temp);
-                    break;
-                case 2:
-                    _percent = stof(temp);
-                    break;
-            }
-            temp = "";
-            j++;
-        }
-    }
+
 }
 
 int32_t entity::getFrequency() const

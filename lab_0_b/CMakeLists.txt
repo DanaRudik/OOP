@@ -9,7 +9,8 @@ add_executable(lab0b)
 target_sources(lab0b PRIVATE 
     "models/entity.h" 
     "models/entity.cpp"
-     
+    "models/entityListBuilder.h"
+    "models/entityListBuilder.cpp"
     main.cpp 
 )
 

@@ -2,6 +2,7 @@
 #include<fstream>
 #include <list>
 
+#include "models/entityListBuilder.h"
 #include "models/entity.h"
 
 using namespace std;
@@ -21,25 +22,23 @@ int main(int argc, char** argv)
         return -1;
     }
 
-    list<models::entity> entities;
-    for(string i; getline(file,i);)
-    {
-        models::entity af(i);
-        entities.push_back(af);
-    }
+    string i; 
+    getline(file,i);
     file.close();
 
+    auto entityList = models::entityListBuilder::build(i);
+
     auto comp = [] (models::entity a, models::entity b) {
-        return a.getFrequency() < b.getFrequency();
+        return a.getFrequency() > b.getFrequency();
     };
 
-    entities.sort(comp);
+    entityList.sort(comp);
 
     ofstream out(output_file_path, ios_base::out);
     out << string("Words;Frequency;Percent") << endl;
 
-    auto l_front = entities.begin();
-    for(int i = 0; i < entities.size(); i++)
+    auto l_front = entityList.begin();
+    for(int i = 0; i < entityList.size(); i++)
     {
         models::entity temp = *l_front;
         out << temp;

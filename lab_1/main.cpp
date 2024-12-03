@@ -19,5 +19,5 @@ TEST(PrintMessageTest, OutputCheck) {
     std::cout.rdbuf(prevCoutBuffer);
 
     // Проверяем, что содержимое буфера соответствует ожиданиям
-    EXPECT_EQ(buffer.str(), "Hello, from BitArray!\n");
+    EXPECT_EQ(buffer.str(), "Hell, from BitArray!\n");
 }

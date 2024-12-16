@@ -60,12 +60,17 @@ int BitArray::size() const { return byte; }
 bool BitArray::empty() const { return bits == 0; }// Проверка на ноль битов
 
 
-// Печать массива
-std::string BitArray::to_string() const {
-        std::string arr;
-        arr.reserve(bits); //резервируем место для массива
+// Массив как строка
+std::string& BitArray::to_string() const {
+        std::string& arr = *(new std::string());
+        int a = bits - 1;
+        int BitsCount = 7-(a % 8); //вычисляем индекс в байтовом массиве для нашего битового массива
         for (int i = 0; i < bits; i++) {
-            arr += (array[i / 8] & (1 << (7 - i % 8))) ? '1' : '0';
+            int idBits = a % 8;
+            int idByte = BitsCount / 8;
+            arr += (array[idByte] & (1 << idBits)) ? '1' : '0';
+            a--;
+            BitsCount++;
         }
         return arr;
 }

@@ -46,7 +46,7 @@ class BitArray
     bool operator[](int i) const; // значение по индексу
     int size() const; // размер
     bool empty() const; // пуст ли массив?
-    std::string to_string() const; // представление массива в виде строки
+    std::string& to_string() const; // представление массива в виде строки
     
     unsigned char getElement(int index) const {
         return array[index]; // Предполагается, что индекс валиден

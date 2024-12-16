@@ -2,28 +2,29 @@
 #include "gtest/gtest.h"
 #include "BitArray.h" 
 
-// Глобальный массив для тестов
-BitArray testArray;
-
 // Тестирование конструктора и базовых методов
 TEST(BitArrayTest, ConstructorsAndBasicMethods) {
-    testArray = BitArray();  // Инициализация для теста
-    ASSERT_EQ(testArray.size(), 0);
-    EXPECT_TRUE(testArray.empty());
+    BitArray testArray1;  // Инициализация для теста
+    ASSERT_EQ(testArray1.size(), 0);
+    EXPECT_TRUE(testArray1.empty());
 
-    testArray = BitArray(8, 5);  // Тестируем явный конструктор
-    EXPECT_EQ(testArray.size(), 8);
+    BitArray testArray(9, 5);  // Тестируем явный конструктор
+    EXPECT_EQ(testArray.size(), 2);
     EXPECT_EQ(testArray.count(), 2);
-    EXPECT_EQ(testArray.to_string(), "00000101");
 
-    BitArray copyArray = testArray;  // Тестируем копирующий конструктор
+    std::string a = "000000101";
+    std::string& strRef = testArray.to_string();
+    EXPECT_EQ(strRef, a);
+    delete &strRef;
+
+    BitArray copyArray(testArray);  // Тестируем копирующий конструктор
     EXPECT_EQ(testArray.to_string(), copyArray.to_string());
-    EXPECT_EQ(copyArray.size(), 8);
+    EXPECT_EQ(copyArray.size(), 2);
 }
 
 // Тестирование операций с битами и изменением размера
 TEST(BitArrayTest, OperationsAndResize) {
-    testArray = BitArray(5, 0b10101);  // Подготовка массива
+    BitArray testArray(5, 0b10101);  // Подготовка массива
 
     // Тестирование метода resize
     testArray.resize(3, 0);
@@ -47,7 +48,7 @@ TEST(BitArrayTest, OperationsAndResize) {
 
 // Тестирование очистки и логических операций
 TEST(BitArrayTest, ClearAndLogicalOperations) {
-    testArray = BitArray(8, 0xFF);  // Подготовка массива
+    BitArray testArray(8, 0xFF);  // Подготовка массива
     testArray.clear();
     EXPECT_EQ(testArray.size(), 0);
     EXPECT_TRUE(testArray.empty());
@@ -63,7 +64,7 @@ TEST(BitArrayTest, ClearAndLogicalOperations) {
 
 // Тестирование сдвигов
 TEST(BitArrayTest, Shifts) {
-    testArray = BitArray(8, 0b10110011);  // Подготовка массива
+    BitArray testArray(8, 0b10110011);  // Подготовка массива
 
     testArray <<= 1;
     EXPECT_EQ(testArray.to_string(), "01100110"); 
@@ -78,7 +79,7 @@ TEST(BitArrayTest, Shifts) {
 
 // Тестирование установки битов
 TEST(BitArrayTest, SetBits) {
-    testArray = BitArray(8, 0b00000000);  // Подготовка массива
+    BitArray testArray(8, 0b00000000);  // Подготовка массива
     
     testArray.set(0, true);
     EXPECT_EQ(testArray.to_string(), "10000000");

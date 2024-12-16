@@ -4,9 +4,7 @@
 // Конструкторы и Деструктор                   
 
 // Конструктор по умолчанию
-BitArray::BitArray() 
-  : bits(0), byte(0), array(nullptr) 
-{}
+BitArray::BitArray() : bits(0), byte(0), array(nullptr){}
 
 // Деструктор
 BitArray::~BitArray() 
@@ -32,31 +30,6 @@ BitArray::BitArray(int num_bits, unsigned long value) {
         }
     }
 }
-
-
-
-// BitArray::BitArray(int num_bits, unsigned long value) : bits(num_bits), byte((num_bits + 7) / 8) {
-//     array = new unsigned char[byte]; // Используем new для выделения памяти
-//     if (!array) {
-//         throw std::runtime_error("Memory allocation failed");
-//     }
-
-//     // Инициализация массива нулями
-//     for (int i = 0; i < num_bits; i++) {
-//         array[i] = 0; // Инициализируем все байты нулями
-//     }
-
-//     // Устанавливаем биты в массиве
-//     for (int i = 0; i < num_bits; i++) {
-//         if (value & (1UL << i)) { // Проверяем, установлен ли i-й бит в value
-//             int byteIndex = (num_bits - 1 - i) / 8; // Определяем индекс байта
-//             int bitIndex = (num_bits - 1 - i) % 8; // Определяем индекс бита внутри байта
-            
-//             array[byteIndex] |= (1 << (7 - bitIndex)); // Устанавливаем бит
-//         }
-//     }
-// }
-
 
 // Конструктор копирования
 BitArray::BitArray(const BitArray& b)

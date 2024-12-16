@@ -2,5 +2,5 @@
 */out
 */*.exe
 *.tlog
-*.json
+*/*.json
 *.obj

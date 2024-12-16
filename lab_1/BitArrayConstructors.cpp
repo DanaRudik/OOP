@@ -1,29 +1,24 @@
 // BitArray.cpp
 #include "BitArray.h"
 #include <bitset>
-// Конструкторы и Деструктор                   
+              
+BitArray::BitArray() : bits(0), byte(0), array(nullptr){}// Конструктор по умолчанию
 
-// Конструктор по умолчанию
-BitArray::BitArray() : bits(0), byte(0), array(nullptr){}
-
-// Деструктор
-BitArray::~BitArray() 
+BitArray::~BitArray() // Деструктор
 { 
     delete[] array; 
 }
 
-// Явный конструктор
-BitArray::BitArray(int num_bits, unsigned long value) {
+BitArray::BitArray(int num_bits, unsigned long value) {// Явный конструктор
     bits = num_bits;
-    byte = (num_bits + 7) / 8; // округление вверх для определения количества байт
+    byte = (num_bits + 7) / 8; // определение количества байт
 
-    array = new unsigned char[byte]; // выделяем память под массив
+    array = new unsigned char[byte]; 
     for (int i = 0; i < byte; i++) {
-        array[i] = 0; // инициализируем массив нулями
+        array[i] = 0; 
     }
 
-    // Заполняем массив битами из заданного значения
-    for (int i = 0; i < num_bits; i++) {
+    for (int i = 0; i < num_bits; i++) {// Заполняем массив битами из заданного значения
         if (value & (1UL << i)) { // проверяем установлен ли i-й бит в value
             int idByte =  byte - (i / 8);
             array[idByte - 1] |= (1UL << i); // устанавливаем бит в соответствующем байте
@@ -31,8 +26,7 @@ BitArray::BitArray(int num_bits, unsigned long value) {
     }
 }
 
-// Конструктор копирования
-BitArray::BitArray(const BitArray& b)
+BitArray::BitArray(const BitArray& b)// Конструктор копирования
   : bits(b.bits), byte(b.byte)
 {
     array = new unsigned char[byte];

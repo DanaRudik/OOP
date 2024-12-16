@@ -9,7 +9,7 @@ TEST(BitArrayTest, ConstructorsAndBasicMethods) {
     EXPECT_TRUE(testArray1.empty());
 
     BitArray testArray(9, 5);  // Тестируем явный конструктор
-    EXPECT_EQ(testArray.size(), 2);
+    EXPECT_EQ(testArray.size(), 9);
     EXPECT_EQ(testArray.count(), 2);
 
     std::string a = "000000101";
@@ -19,7 +19,7 @@ TEST(BitArrayTest, ConstructorsAndBasicMethods) {
 
     BitArray copyArray(testArray);  // Тестируем копирующий конструктор
     EXPECT_EQ(testArray.to_string(), copyArray.to_string());
-    EXPECT_EQ(copyArray.size(), 2);
+    EXPECT_EQ(copyArray.size(), 9);
 }
 
 // Тестирование операций с битами и изменением размера
@@ -40,10 +40,10 @@ TEST(BitArrayTest, OperationsAndResize) {
     EXPECT_EQ(testArray.to_string(), "101101");
 
     // Тестирование swap
-    BitArray bitArray2(8, 0xAA);
-    bitArray2.swap(testArray);
-    EXPECT_EQ(testArray.to_string(), "01010101");
-    EXPECT_EQ(bitArray2.to_string(), "10110100");
+    BitArray testArray2(6, 0b111111);
+    testArray2.swap(testArray);
+    EXPECT_EQ(testArray.to_string(), "111111");
+    EXPECT_EQ(testArray2.to_string(), "101101");
 }
 
 // Тестирование очистки и логических операций

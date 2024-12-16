@@ -33,20 +33,6 @@ int BitArray::count() const {
     return count;
 }
 
-
-
-// Количество единиц
-// int BitArray::count() const {
-//     int count = 0;
-//     for (int i = 0; i < bits; i++) {
-//         int idByte = byte - (i / 8);
-//         if (array[byte - 1] & (1UL << i)) {
-//             count++;
-//         }
-//     }
-//     return count;
-// }
-
 // Значение по индексу
 bool BitArray::operator[](int i) const
 {
@@ -54,7 +40,7 @@ bool BitArray::operator[](int i) const
 }
 
 // Размер
-int BitArray::size() const { return byte; }
+int BitArray::size() const { return bits; }
 
 // Пустая ли структура
 bool BitArray::empty() const { return bits == 0; }// Проверка на ноль битов

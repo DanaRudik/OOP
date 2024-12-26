@@ -6,19 +6,18 @@
 TEST(BitArrayTest, ConstructorsAndBasicMethods) {
     BitArray testArray1;  // Инициализация для теста
     ASSERT_EQ(testArray1.size(), 0);
+    EXPECT_EQ(testArray1.any(), 0);
     EXPECT_TRUE(testArray1.empty());
 
-    BitArray testArray(9, 5);  // Тестируем явный конструктор
+    BitArray testArray(9, 5);  //явный конструктор
     EXPECT_EQ(testArray.size(), 9);
     EXPECT_EQ(testArray.count(), 2);
 
-    std::string a = "000000101";
-    std::string& strRef = testArray.to_string();
-    EXPECT_EQ(strRef, a);
-    delete &strRef;
+    EXPECT_EQ(testArray.to_string(), "000000101");
 
-    BitArray copyArray(testArray);  // Тестируем копирующий конструктор
+    BitArray copyArray(testArray);  //копирующий конструктор
     EXPECT_EQ(testArray.to_string(), copyArray.to_string());
+    EXPECT_TRUE((testArray == copyArray));
     EXPECT_EQ(copyArray.size(), 9);
 }
 
@@ -26,24 +25,27 @@ TEST(BitArrayTest, ConstructorsAndBasicMethods) {
 TEST(BitArrayTest, OperationsAndResize) {
     BitArray testArray(5, 0b10101);  // Подготовка массива
 
-    // Тестирование метода resize
-    testArray.resize(3, 0);
-    EXPECT_EQ(testArray.size(), 3);
-    EXPECT_EQ(testArray.to_string(), "101");
+    //resize
+    testArray.resize(4, 0);
+    EXPECT_EQ(testArray.size(), 4);
+    EXPECT_EQ(testArray.to_string(), "0101");
 
-    // Тестирование push_back
+    //push_back
     testArray.push_back(true);
+    EXPECT_EQ(testArray.to_string(), "01011");
     testArray.push_back(false);
+    EXPECT_EQ(testArray.to_string(), "010110");
     testArray.push_back(true);
+    EXPECT_EQ(testArray.to_string(), "0101101");
     
-    EXPECT_EQ(testArray.size(), 6);
-    EXPECT_EQ(testArray.to_string(), "101101");
+    EXPECT_EQ(testArray.size(), 7);
+    EXPECT_EQ(testArray.to_string(), "0101101");
 
-    // Тестирование swap
-    BitArray testArray2(6, 0b111111);
+    //swap
+    BitArray testArray2(7, 0b1111111);
     testArray2.swap(testArray);
-    EXPECT_EQ(testArray.to_string(), "111111");
-    EXPECT_EQ(testArray2.to_string(), "101101");
+    EXPECT_EQ(testArray.to_string(), "1111111");
+    EXPECT_EQ(testArray2.to_string(), "0101101");
 }
 
 // Тестирование очистки и логических операций
@@ -62,36 +64,34 @@ TEST(BitArrayTest, ClearAndLogicalOperations) {
     EXPECT_EQ((~a).to_string(), "01010101");
 }
 
-// Тестирование сдвигов
+//Тестирование сдвигов
 TEST(BitArrayTest, Shifts) {
-    BitArray testArray(8, 0b10110011);  // Подготовка массива
+    BitArray testArray(6, 0b000010);  // Подготовка массива
+    EXPECT_EQ(testArray.size(), 6);
 
-    testArray <<= 1;
-    EXPECT_EQ(testArray.to_string(), "01100110"); 
-
-    testArray >>= 1;
-    EXPECT_EQ(testArray.to_string(), "00110011"); 
-
-    BitArray baZero(8, 0b00000000);
-    baZero <<= 3; 
-    EXPECT_EQ(baZero.to_string(), "00000000");
+    EXPECT_EQ((testArray << 1).to_string(), "000100");
+    EXPECT_EQ((testArray >> 1).to_string(), "000010");  
 }
 
-// Тестирование установки битов
+//Тестирование установки битов
 TEST(BitArrayTest, SetBits) {
-    BitArray testArray(8, 0b00000000);  // Подготовка массива
+    BitArray testArray(8, 0b00000001);  // Подготовка массива
     
-    testArray.set(0, true);
-    EXPECT_EQ(testArray.to_string(), "10000000");
+    testArray.set(0);
+    EXPECT_EQ(testArray.to_string(), "10000001");
 
-    testArray.set(3, true);
-    EXPECT_EQ(testArray.to_string(), "10010000");
-
-    testArray.set(7, true);
+    testArray.set(3);
     EXPECT_EQ(testArray.to_string(), "10010001");
 
-    testArray.set(5, true);
-    EXPECT_EQ(testArray.to_string(), "10010101");
+    testArray.set();
+    EXPECT_EQ(testArray.to_string(), "11111111");
+
+    testArray.reset(0);
+    EXPECT_EQ(testArray.to_string(), "01111111");
+
+    testArray.reset();
+    EXPECT_EQ(testArray.to_string(), "00000000");
+
 }
 
 // Main function to run all tests

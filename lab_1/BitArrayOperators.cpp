@@ -1,53 +1,41 @@
-// BitArrayOperators.cpp
 #include "BitArray.h"
 
-// Логические операторы
-
-// Логическое "AND"
+// and
 BitArray& BitArray::operator&=(const BitArray& b)
 {
-    if (bits != b.bits)
-    {
+    if (bits != b.bits){
         throw std::invalid_argument("The sizes are not the same.\n");
     }
 
-    for (int i = 0; i < byte; i++)
-    {
+    for (int i = 0; i < byte; i++){
         array[i] &= b.array[i];
     }
-
     return *this;
 }
-/////////////////////////////////////////////////////////////////////////////////
-// Логическое "OR"
+
+// or
 BitArray& BitArray::operator|=(const BitArray& b)
 {
-    if (bits != b.bits)
-    {
+    if (bits != b.bits){
         throw std::invalid_argument("The sizes are not the same.\n");
     }
 
-    for (int i = 0; i < byte; i++)
-    {
+    for (int i = 0; i < byte; i++){
         array[i] |= b.array[i];
     }
-
     return *this;
 }
 
-// "XOR"
+// "xor"
 BitArray& BitArray::operator^=(const BitArray& b)
 {
-    if (bits != b.bits)
-    {
+    if (bits != b.bits){
         throw std::invalid_argument("The sizes are not the same.\n");
     }
 
-    for (int i = 0; i < byte; i++)
-    {
+    for (int i = 0; i < byte; i++){
         array[i] ^= b.array[i];
     }
-
     return *this;
 }
 
@@ -55,87 +43,72 @@ BitArray& BitArray::operator^=(const BitArray& b)
 BitArray BitArray::operator~() const
 {
     BitArray result(*this); // Создаем копию
-
-    for (int i = 0; i < byte; i++)
-    {
+    for (int i = 0; i < byte; i++){
         result.array[i] = ~array[i];
     }
-
     return result;
 }
 
-// Операция сдвига влево
-BitArray& BitArray::operator<<=(int n)
+// сдвиг влево
+BitArray& BitArray::operator<<(int n)
 {
-    if (n <= 0) return *this; // Если сдвиг не положительный, не меняем массив
-
-    int newByte = byte;
-    for (int i = 0; i < bits; i++)
+    if (n <= 0) return *this;  // Если n меньше или равно 0, ничего не делаем
+    if (n >= (bits * 8)) 
     {
-        if (i % 8 == 0 && i != 0)
-        {
-            newByte--;
-        }
-
-        int pos = (i + n) / 8;
-        int step = 7 - (i + n) % 8;
-
-        if (pos < byte && (array[pos] & (1 << (7 - (i % 8)))))
-        {
-            array[newByte] |= (1 << step);
-        }
-        else
-        {
-            array[newByte] &= ~(1 << step);
-        }
+        std::fill(array, array + bits, 0);// Если сдвиг больше или равен общему количеству битов, обнуляем массив
+        return *this;
     }
 
+    unsigned char* newArray = new unsigned char[byte](); //выделение и инициализация
+    
+    int startIndex = (byte * 8)-1; //дефолтный последний индекс в битовом массиве
+    int count = startIndex;
+    int count_n = n;
+    int num_iteration = (byte * 8) - n;
+
+    for (int i = 0; i < num_iteration; i++){ //i отвечает за сдвиги
+
+        int idBits = i % 8;
+        int idByte = count / 8;
+        int idByteForIndex = startIndex - i;
+
+        if((*this)[idByteForIndex]){ //массивы и оператор индексации не могут быть применены к указателям или экземплярам созданных классов таким образом
+            newArray[idByte] |= (1 << count_n);
+        }
+        
+        count_n++; //сдвиг в новом массиве
+        count--; //индекс того бита который мы проверяем
+    }
+
+    array = newArray;// Устанавливаем новый массив
     return *this;
 }
 
-// Операция сдвига вправо
-BitArray& BitArray::operator>>=(int n)
+// сдвиг вправо 
+BitArray& BitArray::operator>>(int n) 
 {
-    if (n <= 0) return *this; // Если сдвиг не положительный, не меняем массив
-
-    int newByte = 0;
-    for (int i = bits - 1; i >= 0; i--)
+    if (n <= 0) return *this;  // Если n меньше или равно 0, ничего не делаем
+    if (n >= (bits * 8)) 
     {
-        if (i % 8 == 7 && i != bits - 1)
-        {
-            newByte++;
-        }
-
-        int pos = (i - n) / 8;
-        int step = 7 - (i - n) % 8;
-
-        if (pos >= 0 && (array[pos] & (1 << (7 - (i % 8)))))
-        {
-            array[newByte] |= (1 << step);
-        }
-        else
-        {
-            array[newByte] &= ~(1 << step);
-        }
+        std::fill(array, array + bits, 0);// Если сдвиг больше или равен общему количеству битов, обнуляем массив
+        return *this;
     }
 
+    unsigned char* newArray = new unsigned char[byte](); //выделение и инициализация
+    
+    int num_iteration = (byte * 8) - n;
+    int startIndex = (byte * 8)-1; //дефолтный последний индекс в битовом массиве
+
+    for (int i = 0; i < num_iteration; i++){ //i отвечает за сдвиги
+        int idByte = i / 8;
+        int idBits = i % 8;
+
+        if((*this)[i]){ //массивы и оператор индексации не могут быть применены к указателям или экземплярам созданных классов таким образом
+            newArray[idByte] |= (1 << (startIndex - n));
+        }
+        n++; //сдвиг в новом массиве
+    }
+
+    array = newArray;// Устанавливаем новый массив
     return *this;
-}
-
-// Операция сдвига влево (копия)
-BitArray BitArray::operator<<(int n) const
-{
-    BitArray newBitArray = *this; // Создание копии
-    newBitArray <<= n; // Используем тот же метод сдвига
-
-    return newBitArray;
-}
-
-// Операция сдвига вправо (копия)
-BitArray BitArray::operator>>(int n) const
-{
-    BitArray newBitArray = *this; // Создание копии
-    newBitArray >>= n; // Используем тот же метод сдвига
-
-    return newBitArray;
 }

@@ -1,28 +1,18 @@
 #include "BitArray.h"
 
-#define MAX 255
-
 // Установка бита по индексу n в значение val
-BitArray& BitArray::set(int n, bool val)
+BitArray& BitArray::set(int n)
 {
-    int pos = n / 8;
-    int step = 7 - n % 8;
-
-    if (val)
-    {
-        array[pos] |= (1 << step);
-    }
-    else
-    {
-        array[pos] &= ~(1 << step);
-    }
+    int idByte = n / 8;
+    int shift = (byte*8 - 1) - n % 8;
+    array[idByte] |= (1 << shift);
     return *this;
 }
 
 // Заполнение массива единицами
 BitArray& BitArray::set()
 {        
-    std::fill(array, array + byte, MAX); // Используем стандартную библиотеку для заполнения
+    std::fill(array, array + byte, 255); // Используем стандартную библиотеку для заполнения
     return *this;
 }
 

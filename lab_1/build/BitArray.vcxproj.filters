@@ -4,7 +4,7 @@
     <ClCompile Include="D:\github\OOP\lab_1\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\github\OOP\lab_1\BitArray.cpp">
+    <ClCompile Include="D:\github\OOP\lab_1\TwoBitArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="D:\github\OOP\lab_1\BitArrayConstructors.cpp">

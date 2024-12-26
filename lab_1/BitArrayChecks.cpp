@@ -17,10 +17,7 @@ bool BitArray::any() const
 }
 
 // Нет единиц?
-bool BitArray::none() const
-{
-    return !any(); // Используем уже реализованный метод
-}
+bool BitArray::none() const{ return !any();}// Используем уже реализованный метод
 
 int BitArray::count() const {
     int count = 0;
@@ -33,17 +30,14 @@ int BitArray::count() const {
     return count;
 }
 
-// Значение по индексу
+// Значение бита по индексу
 bool BitArray::operator[](int i) const
 {
-    return (array[i / 8] & (1 << (7 - i % 8))) != 0; // Упрощение
+    return (array[i / 8] & (1 << (7 - (i % 8)))) != 0; // Упрощение
 }
 
-// Размер
-int BitArray::size() const { return bits; }
-
-// Пустая ли структура
-bool BitArray::empty() const { return bits == 0; }// Проверка на ноль битов
+int BitArray::size() const { return bits; } //Размер битового массива
+bool BitArray::empty() const { return bits == 0; }// Пустая ли структура
 
 
 // Массив как строка

@@ -4,3 +4,5 @@
 *.tlog
 */*.json
 *.obj
+build/
+

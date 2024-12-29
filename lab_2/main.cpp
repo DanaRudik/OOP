@@ -3,8 +3,15 @@
 #include "Life.h"
 
 int main(int argc, char *argv[]) {
-    Life Life;
+    std::cout << R"(
+        (\ /)                                         (\_/)
+        ( . .)                                        ( . .) 
+        c(")(")    H E L L O ,    T H I S   I S       c(")(")
+                 T H E   G A M E    O F   L I F E    
+  
+)";
 
+    Life Life;
     if (argc > 1) {
         if (argv[1][0] != '-') {
             Life.loadFromFile(argv[1]);

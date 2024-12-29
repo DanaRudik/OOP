@@ -122,13 +122,7 @@ void Life::tick(const int n) {
     }
 }
 
-void Life::showHelp() const {
-    std::cout << "+-----+ Command Help +-----+" << std::endl;
-    std::cout << "dump <filename> - save the universe to a file." << std::endl;
-    std::cout << "tick <n> - calculate n iterations." << std::endl;
-    std::cout << "exit - exit the game." << std::endl;
-    std::cout << "help - display command help" << std::endl << std::endl;
-}
+
 
 
 void Life::setRules(const std::string &ruleLine) {
@@ -168,4 +162,13 @@ void Life::setGridSize(const std::string &sizeLine) {
 
 void Life::printGrid() {
     _grid.print();
+}
+
+void Life::showHelp() const {
+    std::cout << "+--------------------------+ Help +----------------------------+" << std::endl;
+    std::cout << "| dump <filename>   | save the current universe to a file.     |" << std::endl;
+    std::cout << "| tick <n>          | Execute n iterations of the simulation.  |" << std::endl;
+    std::cout << "| exit              | Exit the game.                           |" << std::endl;
+    std::cout << "| help              | Display command help.                    |" << std::endl;
+    std::cout << "+--------------------------------------------------------------+" << std::endl;
 }

@@ -53,11 +53,27 @@ void Grid::setChange(int y, int x, bool change) {
 }
 
 void Grid::print() {
+    // Выводим верхнюю рамку
+    std::cout << "+";
+    for (int j = 0; j < _width; j++) {
+        std::cout << "-"; // Символ рамки
+    }
+    std::cout << "+" << std::endl;
+
+    // Выводим содержимое поля с боковыми рамками
     for (int i = 0; i < _height; i++) {
+        std::cout << "|"; // Боковая рамка слева
         for (int j = 0; j < _width; j++) {
-            std::cout << ((_cells[i][j].isAlive()) ? 'o' : ' ');
+            std::cout << ((_cells[i][j].isAlive()) ? 'o' : ' '); // Содержимое ячейки
         }
+        std::cout << "|"; // Боковая рамка справа
         std::cout << std::endl;
     }
-    std::cout << std::endl;
+
+    // Выводим нижнюю рамку
+    std::cout << "+";
+    for (int j = 0; j < _width; j++) {
+        std::cout << "-"; // Символ рамки
+    }
+    std::cout << "+" << std::endl;
 }

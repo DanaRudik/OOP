@@ -3,11 +3,6 @@
 #include <set>
 #include "Field.h"
 
-const int MID_HEIGHT = 12;
-const int MID_WIDTH  = 25;
-const int HEIGHT     = 25;
-const int WIDTH      = 50;
-
 class Life {
 public:
     std::set<int> _birth;

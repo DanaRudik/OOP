@@ -3,12 +3,10 @@
 #include <string>
 
 
-Life::Life() : _birth{3}, _survival{2, 3}, _grid(HEIGHT, WIDTH), _iteration(0) {
-    _grid.setAlive(MID_HEIGHT, MID_WIDTH, true);
-    _grid.setAlive(MID_HEIGHT + 1, MID_WIDTH, true);
-    _grid.setAlive(MID_HEIGHT - 1, MID_WIDTH, true);
-    _grid.setAlive(MID_HEIGHT, MID_WIDTH - 1, true);
-    _grid.setAlive(MID_HEIGHT + 1, MID_WIDTH + 1, true);
+Life::Life() : _birth{3}, _survival{2, 3}, _grid(31, 65), _iteration(0) {
+    _grid.setAlive(15, 31, true);
+    _grid.setAlive(16, 31, true);
+    _grid.setAlive(17, 31, true);
 }
 
 void Life::loadFromFile(const std::string &filename) {
@@ -165,10 +163,10 @@ void Life::printGrid() {
 }
 
 void Life::showHelp() const {
-    std::cout << "+--------------------------+ Help +----------------------------+" << std::endl;
-    std::cout << "| dump <filename>   | save the current universe to a file.     |" << std::endl;
-    std::cout << "| tick <n>          | Execute n iterations of the simulation.  |" << std::endl;
-    std::cout << "| exit              | Exit the game.                           |" << std::endl;
-    std::cout << "| help              | Display command help.                    |" << std::endl;
-    std::cout << "+--------------------------------------------------------------+" << std::endl;
+    std::cout << "+--------------------------+ Help +-------------------------------+" << std::endl;
+    std::cout << "| dump <filename>   | save the current universe to a file.        |" << std::endl;
+    std::cout << "| tick <n>          | Execute n iterations of the simulation.     |" << std::endl;
+    std::cout << "| exit              | Exit the game.                              |" << std::endl;
+    std::cout << "| help              | Display command help.                       |" << std::endl;
+    std::cout << "+-----------------------------------------------------------------+" << std::endl;
 }
